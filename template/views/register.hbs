@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+<body>
+    {{>navbar}}
+    <div>
+        <h3>Registation Form</h3>
+        <form action="/register" method="POST">
+            <div>
+                <div class="col-md-6">
+                    <div>
+                        <input type="text" placeholder="enter first name" value="" name="firstname">
+                    </div>
+                    <div>
+                        <input type="email" placeholder="enter email" value="" name="email">
+                    </div>
+                    <div>
+                        <input type="text" placeholder="enter phone number" minlength="10" maxlength="10"  value="" name="phone">
+                    </div>
+                    <div>
+                        <input type="password" placeholder="enter password" value="" name="password">
+                    </div>
+                </div>
+            </div>
+             <div>
+                <div class="col-md-6">
+                    <div>
+                        <input type="text" placeholder="enter last name" value="" name="lastname">
+                    </div>
+                    <div>
+                        <label class="radio">
+                            <input type="radio" value="male" name="gender" checked>
+                        </label>
+                        <label class="radio">
+                            <input type="radio" value="female" name="gender" >
+                        </label>
+                    </div>
+                    <div>
+                        <input type="text" placeholder="enter age" value="" name="age">
+                    </div>
+                    <div>
+                        <input type="password" placeholder="enter password" value="" name="confirmPassword">
+                    </div>
+                    <input type="submit" class="btnregister" value="Register">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
