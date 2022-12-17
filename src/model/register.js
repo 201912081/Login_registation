@@ -1,4 +1,5 @@
 const mongoose=require('mongoose')
+const bcrypt=require('bcryptjs')
 
 const registerShema=new mongoose.Schema({
     firstname:{
@@ -30,7 +31,19 @@ const registerShema=new mongoose.Schema({
     gender:{
         type:String,
         required:true
+    },
+    password:{
+        type:String,
+        required:true
     }
+})
+
+registerShema.pre("save",async function(next){
+    // if(this.isModified("password")){
+       this.password=await bcrypt.hash(this.password,10);
+
+    // }
+    next();
 })
 
 // create a collection

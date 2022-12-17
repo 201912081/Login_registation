@@ -1,6 +1,7 @@
 const express=require('express')
 const app=express();
 const port=process.env.PORT||3000;
+const bcrypt=require('bcryptjs')
 
 require("./db/conn")
 const registermodel=require("./model/register")
@@ -41,10 +42,17 @@ app.post("/login",async(req,res)=>{
     
         const email=req.body.email;
         const password=req.body.password;
-        const data=await registermodel.findOne({email:email, password:password})
+        
+
+        const data=await registermodel.findOne({email:email})
         if(data)
         {
-            res.status(200).render("index")
+            const checkpass=await bcrypt.compare(password,data.password)
+            console.log(checkpass)
+            if(checkpass)
+                res.status(200).render("index")
+            else
+            res.status(404).send("email or password is wrong!!")
         }
         else{
             res.status(404).send("email or password is wrong!!")
@@ -59,11 +67,15 @@ app.post("/login",async(req,res)=>{
 // create user
 app.post("/register",async(req,res)=>{
     try{
-        console.log(req.body)
+        // console.log(req.body)
         const pass=req.body.password;
         const cpass=req.body.confirmpassword;
-        if(!pass==cpass)
-            res.render("password and confirm password does not match")
+
+        if(!(pass==cpass))
+        {
+            res.status(404).send("password and confirm password does not match")
+        }
+            // res.render("")
         else{
             const registerData=new registermodel({
                 firstname:req.body.firstname,
